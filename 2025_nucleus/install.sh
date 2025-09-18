@@ -50,19 +50,14 @@ sudo sed -i 's/^\s*bantime\s*=.*/bantime = -1/' /etc/fail2ban/jail.local
 sudo systemctl restart fail2ban
 sudo systemctl status fail2ban
 
+# Roon
 sudo apt install -y curl ffmpeg cifs-utils lbzip2
-
 curl -O -L https://download.roonlabs.com/builds/roonserver-installer-linuxx64.sh
+sudo chmod +x roonserver-installer-linuxx64.sh
+sudo ./roonserver-installer-linuxx64.sh
 
 
-# TCP ports for Roon
-#sudo ufw allow 9100:9200/tcp
-#sudo ufw allow 9330/tcp
-#sudo ufw allow 9003/udp
-#sudo ufw allow 1900/udp
-#sudo ufw allow 5353/udp
-#sudo ufw status verbose
-
-# Roon will only connectable if it can broadcast on the network
-sudo ufw allow from 192.168.68.0/24
+# Sleep and WOL [not currently using]
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'suspend'
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 1200
 
