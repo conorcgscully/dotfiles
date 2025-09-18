@@ -61,3 +61,11 @@ sudo ./roonserver-installer-linuxx64.sh
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'suspend'
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 1200
 
+# handle the mounting of the NAS
+cp mount.sh ~
+sudo chmod +x ~/mount.sh
+# Get current crontab, add new line, install it back
+sudo crontab -l > /tmp/rootcron 2>/dev/null || true
+echo "@reboot sleep 60 && /home/conor/mount.sh" >> /tmp/rootcron
+sudo crontab /tmp/rootcron
+rm /tmp/rootcron
